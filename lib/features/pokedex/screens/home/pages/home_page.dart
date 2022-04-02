@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pokemon/features/pokedex/screens/details/container/detail_container.dart';
+import 'package:flutter_pokemon/features/pokedex/screens/home/pages/widgets/pokemon_item.dart';
 
 import '../../../../../common/models/pokemon.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key, required this.list}) : super(key: key);
-
+  const HomePage({Key? key, required this.list, required this.onItemClick})
+      : super(key: key);
+  final Function(String, DetailArguments) onItemClick;
   final List<Pokemon> list;
 
   @override
@@ -13,14 +16,15 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      body: ListView.builder(
-          itemCount: list.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(list[index].name),
-              // subtitle: Text(pokemon.url),
-            );
-          }),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: GridView.count(
+          crossAxisCount: 2,
+          crossAxisSpacing: 24,
+          mainAxisSpacing: 24,
+          children: list.map((e) => PokemonItem(pokemon: e)).toList(),
+        ),
+      ),
     );
   }
 }
