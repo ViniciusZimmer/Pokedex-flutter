@@ -5,9 +5,27 @@ import 'package:flutter_pokemon/features/pokedex/screens/details/pages/detail_lo
 import 'package:flutter_pokemon/features/pokedex/screens/details/pages/detail_page.dart';
 
 class DetailArguments {
-  final String name;
+  final Pokemon pokemon;
   final String? img;
-  const DetailArguments({required this.name, this.img});
+  final String? egg;
+  final String? weaknesses;
+  final String? height;
+  final String? weight;
+  final String? num;
+  final String? spawnTime;
+  final List<NextEvolution>? nextEvolution;
+
+  DetailArguments({
+    required this.pokemon,
+    this.nextEvolution,
+    this.img,
+    this.egg,
+    this.weaknesses,
+    this.height,
+    this.weight,
+    this.num,
+    this.spawnTime,
+  });
 }
 
 class DetailContainer extends StatelessWidget {
@@ -27,7 +45,10 @@ class DetailContainer extends StatelessWidget {
 
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
-            return DetailPage(name: arguments.name, list: snapshot.data!);
+            return DetailPage(
+              pokemon: arguments.pokemon,
+              list: snapshot.data!,
+            );
           }
 
           if (snapshot.hasError) {}

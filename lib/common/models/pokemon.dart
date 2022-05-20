@@ -1,6 +1,18 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+
+class NextEvolution {
+  final String? num;
+  final String? name;
+
+  NextEvolution({this.num, this.name});
+
+  factory NextEvolution.fromMap(Map<String, dynamic> json) {
+    return NextEvolution(
+      num: json['num'] as String?,
+      name: json['name'] as String?,
+    );
+  }
+}
 
 class Pokemon {
   final String name;
@@ -8,6 +20,11 @@ class Pokemon {
   final int id;
   final String num;
   final String img;
+  final String egg;
+  final String height;
+  final String weight;
+  final List<String> weaknesses;
+  // final List<NextEvolution> nextEvolution;
 
   factory Pokemon.fromMap(Map<String, dynamic> json) {
     return Pokemon(
@@ -20,6 +37,19 @@ class Pokemon {
           )
           .toList(),
       img: json['img'],
+      egg: json['egg'],
+      weaknesses: (json['weaknesses'] as List<dynamic>)
+          .map(
+            (e) => e as String,
+          )
+          .toList(),
+      height: json['height'],
+      weight: json['weight'],
+      // nextEvolution: (json['next_evolution'] as List<dynamic>)
+      //     .map(
+      //       (e) => NextEvolution.fromMap(e as Map<String, dynamic>),
+      //     )
+      //     .toList(),
     );
   }
 
@@ -31,6 +61,11 @@ class Pokemon {
     required this.type,
     required this.id,
     required this.num,
+    required this.egg,
+    required this.weaknesses,
+    required this.height,
+    required this.weight,
+    // required this.nextEvolution,
   });
 
   static Color? _color({required String type}) {
